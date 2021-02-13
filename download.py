@@ -9,7 +9,7 @@ url=API_URL+'?limit=250'
 products=[]
 headers={'Content-Type': 'application/json'}
 r=requests.get(url,headers=headers)
-products.append(r.json()['products'])
+products=products+r.json()['products']
 
 header_link=r.headers['Link']
 header_link_arr=header_link.split(',')
@@ -33,7 +33,7 @@ while not(header_link.find('rel="next"')==-1):
     
     url=API_URL+'?limit=250&page_info='+next_page_rel
     r=requests.get(url,headers=headers)
-    products.append(r.json()['products'])
+    products=products+r.json()['products']
 
     header_link=r.headers['Link']
     header_link_arr=header_link.split(',')
